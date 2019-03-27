@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+import sys
+import argparse
+import pandas as pd
+import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(description='Plot some columns.')
+parser.add_argument('file', help='Path to the data file.')
+parser.add_argument('-s', '--sep', default=',')
+parser.add_argument('-x', '--x', default=None)
+parser.add_argument('-y', '--y', nargs='*', default=[0])
+parser.add_argument('-he', '--header', action='store_true')
+args = parser.parse_args()
+print(args.file)
+print(args)
+
+df = pd.read_csv(args.file,
+                 header=0 if args.header else None,
+                 sep=args.sep)
+
+if args.x is not None and args.x.isdigit():
+    x_list = df.iloc[:, int(args.x)].tolist()
+else:
+    x_list = df[args.x].tolist()
+
+y_list = []
+for col in args.y:
+    if col.isdigit():
+        y_list.append(df.iloc[:, int(col)].tolist())
+    else:
+        y_list.append(df[col])
+
+print(y_list)
+
+for y in y_list:
+    plt.plot(x_list, y)
+plt.show()
