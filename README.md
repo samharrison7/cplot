@@ -17,9 +17,34 @@ optional arguments:
   -y [Y [Y ...]], --y [Y [Y ...]]
                         column(s) representing y
   -he, --header         is the first row a header?
+  -f [FMT [FMT ...]], --fmt [FMT [FMT ...]]
+                        plot format, same convention as pyplot.plot() fmt
+                        argument. Can be list where each item is format for
+                        different y column
 ```
 
-For example, for the data structure ([test.txt](./test.txt)):
+### The simplest example
+
+For example, for the one column data structure ([example/sin.txt](example/sin.txt)):
+
+```
+0.8414709848078965
+0.9092974268256817
+...
+-0.9992068341863537
+```
+
+To plot a line graph:
+
+```bash
+cplot example/sin.txt
+```
+
+![sin(x)](doc/fig_sin.png)
+
+### Multiple columns, seperators and formats
+
+For example, for the data structure ([example/twocol.txt](example/twocol.txt)):
 
 ```
 x;y1;y2
@@ -47,6 +72,14 @@ cplot test.txt -s ";" -he -x 0 -y 1 2
 ```
 
 ![x vs y1](doc/fig_y1-y2.png)
+
+Changing the plot formats:
+
+```bash
+cplot test.txt -s ";" -he -x x -y y1 y2 -f bo r-
+```
+
+![x vs y1 with different fmt](doc/fig_y1-y2_fmt.png)
 
 ## Installation
 
