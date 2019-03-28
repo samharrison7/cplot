@@ -5,19 +5,18 @@ A very simple matplotlib wrapper to plot columns from a data file. *Work in prog
 ## Usage
 
 ```
-	cplot [-h] [-s SEP] [-x X] [-y [Y [Y ...]]] [-he] file
+Plot some columns.
 
-    Plot some columns.
+positional arguments:
+  file                  path to the data file
 
-    positional arguments:
-      file                  Path to the data file.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -s SEP, --sep SEP
-      -x X, --x X
-      -y [Y [Y ...]], --y [Y [Y ...]]
-      -he, --header
+optional arguments:
+  -h, --help            show this help message and exit
+  -s SEP, --sep SEP     the separator between columns in the data
+  -x X, --x X           column representing x, defaults to None
+  -y [Y [Y ...]], --y [Y [Y ...]]
+                        column(s) representing y
+  -he, --header         is the first row a header?
 ```
 
 For example, for the data structure ([test.txt](./test.txt)):
@@ -32,18 +31,22 @@ x;y1;y2
 To plot `x` vs `y1`:
 
 ```bash
-    cplot test.txt -s ";" -he -x 0 -y 1
-    # OR
-    cplot test.txt -s ";" -he -x x -y y1
+cplot test.txt -s ";" -he -x 0 -y 1
+# OR
+cplot test.txt -s ";" -he -x x -y y1
 ```
+
+![x vs y1](doc/fig_y1.png)
 
 To plot `x` vs `y1` and `y2`:
 
 ```bash
-    cplot test.txt -s ";" -he -x x -y y1 y2
-    # OR
-    cplot test.txt -s ";" -he -x 0 -y 1 2
+cplot test.txt -s ";" -he -x x -y y1 y2
+# OR
+cplot test.txt -s ";" -he -x 0 -y 1 2
 ```
+
+![x vs y1](doc/fig_y1-y2.png)
 
 ## Installation
 
