@@ -5,33 +5,53 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser(description='Plot some columns.')
-parser.add_argument('file', help='Path to the data file.')
-parser.add_argument('-s', '--sep', default=',')
-parser.add_argument('-x', '--x', default=None)
-parser.add_argument('-y', '--y', nargs='*', default=[0])
-parser.add_argument('-he', '--header', action='store_true')
+parser.add_argument('file', help='path to the data file')
+parser.add_argument('-s', '--sep', default=',', help='the separator between columns in the data, default to comma ","')
+parser.add_argument('-x', '--x', default=None, help='column representing x, defaults to None')
+parser.add_argument('-y', '--y', nargs='*', default=['0'], help='column(s) representing y')
+parser.add_argument('-he', '--header', action='store_true', help='is the first row a header?')
+parser.add_argument('-f', '--fmt', nargs='*',
+    help='plot format, same convention as pyplot.plot() fmt argument. Can be list where each item is format for different y column')
 args = parser.parse_args()
-print(args.file)
-print(args)
 
 df = pd.read_csv(args.file,
                  header=0 if args.header else None,
                  sep=args.sep)
 
+# Get the x column, if there is one, and add to plot args for each plot
 if args.x is not None and args.x.isdigit():
     x_list = df.iloc[:, int(args.x)].tolist()
-else:
+elif args.x is not None:
     x_list = df[args.x].tolist()
+else:
+    x_list = None
+if x_list is not None:
+    plot_args = [[x_list] for y in args.y]
+else:
+    plot_args = [None] * len(args.y)
 
-y_list = []
-for col in args.y:
+# Add the y column(s) to the plot args
+for i, col in enumerate(args.y):
     if col.isdigit():
-        y_list.append(df.iloc[:, int(col)].tolist())
+        if plot_args[i] is not None:
+            plot_args[i].append(df.iloc[:, int(col)].tolist())
+        else:
+            plot_args[i] = [df.iloc[:, int(col)].tolist()]
     else:
-        y_list.append(df[col])
+        if plot_args[i] is not None:
+            plot_args[i].append(df[col].tolist())
+        else:
+            plot_args[i] = [df[col].tolist()]
 
-print(y_list)
+if args.fmt is not None and len(args.fmt) == 1:
+    for i, arg in enumerate(plot_args):
+        plot_args[i].append(args.fmt[0])
+elif args.fmt is not None and len(args.fmt) == len(plot_args):
+    for i, fmt in enumerate(args.fmt):
+        plot_args[i].append(args.fmt[i])
+elif args.fmt is not None and len(args.fmt) != len(plot_args):
+    print("Warning: Length mismatch between y columns and plot fmt. Ignoring plot fmt.")
 
-for y in y_list:
-    plt.plot(x_list, y)
+for arg in plot_args:
+    plt.plot(*arg)
 plt.show()
