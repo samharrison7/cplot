@@ -3,6 +3,7 @@ import sys
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 parser = argparse.ArgumentParser(description='Plot some columns.')
 parser.add_argument('file', help='path to the data file')
@@ -12,11 +13,21 @@ parser.add_argument('-y', '--y', nargs='*', default=['0'], help='column(s) repre
 parser.add_argument('-he', '--header', action='store_true', help='is the first row a header?')
 parser.add_argument('-f', '--fmt', nargs='*',
     help='plot format, same convention as pyplot.plot() fmt argument. Can be list where each item is format for different y column')
+parser.add_argument('-gb', '--groupby', nargs=1, help='column to group data by. Pandas groupby() is applied internally')
+parser.add_argument('-a', '--agg', default='mean', help='numpy function to aggregate grouped table by mean, median, sum, std or cumsum. Defaults to mean')
 args = parser.parse_args()
 
 df = pd.read_csv(args.file,
                  header=0 if args.header else None,
                  sep=args.sep)
+
+if args.groupby[0] in args.y:
+    print("Woah, you can't group by columns you want to plot! Column: {0}".format(args.groupby[0]))
+    sys.exit()
+
+if args.groupby is not None and args.agg in ['mean', 'median', 'sum', 'std']:
+    df = eval('df.groupby({0}, as_index=False).agg(np.{1})'.format(args.groupby, args.agg))
+
 
 # Get the x column, if there is one, and add to plot args for each plot
 if args.x is not None and args.x.isdigit():

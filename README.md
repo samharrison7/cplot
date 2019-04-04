@@ -81,6 +81,34 @@ cplot example/multicol.txt -s ";" -he -x x -y y1 y2 -f bo r-
 
 ![x vs y1 with different fmt](doc/fig_y1-y2_fmt.png)
 
+### Groupby
+
+Cplot deals with the simplest of "groupby" operations; namely, grouping by one column using one aggregation function. The column to group by is provided by the `-gb` or `--groupby` flag, and the aggregation function by the `-a` or `--agg` flag (which defaults to "mean"). Interally, [pandas.DataFrame.groupby()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) is used (i.e. `DataFrame.group([-gb])).agg(np.-a)`).
+
+For example, if you have the data structure [example/groupby.txt](example/groupby.txt):
+
+```
+t,x,y,z
+1,1,1,10
+1,1,2,10
+2,1,1,20
+2,1,2,20
+3,1,1,30
+3,1,2,30
+4,1,1,40
+4,1,2,40
+```
+
+To plot `t` against the *sum* of `z` when grouped by `x` and `y`:
+
+```bash
+cplot example/groupby.txt -he -gb t -a sum -x t -y z -f bo
+```
+
+![t vs z grouped](doc/fig_gb.png)
+
+Permitted aggregation functions (which are NumPy functions) are mean, median, sum and std.
+
 ## Installation
 
 You need Python installed, as well as Pandas and Matplotlib. Then, simply copy the `cplot` script to somewhere on your `$PATH`.
