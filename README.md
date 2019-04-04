@@ -5,6 +5,10 @@ A very simple matplotlib wrapper to plot columns from a data file. *Work in prog
 ## Usage
 
 ```
+usage: cplot [-h] [-s SEP] [-x X] [-y [Y [Y ...]]] [-he] [-f [FMT [FMT ...]]]
+             [-gb GROUPBY] [-a AGG]
+             file
+
 Plot some columns.
 
 positional arguments:
@@ -12,7 +16,8 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -s SEP, --sep SEP     the separator between columns in the data
+  -s SEP, --sep SEP     the separator between columns in the data, default to
+                        comma ","
   -x X, --x X           column representing x, defaults to None
   -y [Y [Y ...]], --y [Y [Y ...]]
                         column(s) representing y
@@ -21,6 +26,12 @@ optional arguments:
                         plot format, same convention as pyplot.plot() fmt
                         argument. Can be list where each item is format for
                         different y column
+  -gb GROUPBY, --groupby GROUPBY
+                        column to group data by. Pandas groupby() is applied
+                        internally
+  -a AGG, --agg AGG     numpy function to aggregate grouped table by mean,
+                        median, sum, std or cumsum. Defaults to mean
+
 ```
 
 ### The simplest example
