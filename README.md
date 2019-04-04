@@ -94,7 +94,7 @@ cplot example/multicol.txt -s ";" -he -x x -y y1 y2 -f bo r-
 
 ### Groupby
 
-Cplot deals with the simplest of "groupby" operations; namely, grouping by one column using one aggregation function. The column to group by is provided by the `-gb` or `--groupby` flag, and the aggregation function by the `-a` or `--agg` flag (which defaults to "mean"). Interally, [pandas.DataFrame.groupby()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) is used (i.e. `DataFrame.group([-gb])).agg(np.-a)`).
+Cplot deals with the simplest of "groupby" operations; namely, grouping by one column using one aggregation function. The column to group by is provided by the `-gb` or `--groupby` flag, and the aggregation function by the `-a` or `--agg` flag (which defaults to "mean"). Internally, [pandas.DataFrame.groupby()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) is used (i.e. `DataFrame.group([-gb])).agg(np.-a)`).
 
 For example, if you have the data structure [example/groupby.txt](example/groupby.txt):
 
@@ -113,7 +113,7 @@ t,x,y,z
 To plot `t` against the *sum* of `z` when grouped by `x` and `y`:
 
 ```bash
-cplot example/groupby.txt -he -gb t -a sum -x t -y z -f bo
+cplot example/groupby.txt -he -gb t -a sum -x t -y z -f gs
 ```
 
 ![t vs z grouped](doc/fig_gb.png)
