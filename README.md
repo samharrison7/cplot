@@ -1,6 +1,10 @@
 # CPlot
 
-A very simple matplotlib wrapper to plot columns from a data file. *Work in progress.*
+A very simple matplotlib wrapper to plot columns from a data file.
+
+## Installation
+
+You need Python installed, as well as Pandas and Matplotlib. Then, simply copy the `cplot` script to somewhere on your `$PATH`.
 
 ## Usage
 
@@ -31,7 +35,8 @@ optional arguments:
                         internally
   -a AGG, --agg AGG     numpy function to aggregate grouped table by mean,
                         median, sum, std or cumsum. Defaults to mean
-
+  -c COMMENT, --comment COMMENT
+                        ignore lines denoted by this comment character.
 ```
 
 ### The simplest example
@@ -120,7 +125,20 @@ cplot example/groupby.txt -he -gb t -a sum -x t -y z -f gs
 
 Permitted aggregation functions (which are NumPy functions) are mean, median, sum and std.
 
-## Installation
+### Comments in files
 
-You need Python installed, as well as Pandas and Matplotlib. Then, simply copy the `cplot` script to somewhere on your `$PATH`.
+You can ignore lines which are commented out by providing the comment character as an argument. For example, if you have the data structure:
 
+```
+# This is a comment
+x,y
+1,2
+2,3
+3,4
+```
+
+To plot `x` against `y`:
+
+```bash
+cplot example/comment.txt -he -c# -x x -y y
+```

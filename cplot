@@ -14,18 +14,19 @@ parser.add_argument('-he', '--header', action='store_true', help='is the first r
 parser.add_argument('-f', '--fmt', nargs='*',
     help='plot format, same convention as pyplot.plot() fmt argument. Can be list where each item is format for different y column')
 parser.add_argument('-gb', '--groupby', nargs=1, help='column to group data by. Pandas groupby() is applied internally')
-parser.add_argument('-a', '--agg', default='mean', help='numpy function to aggregate grouped table by mean, median, sum, std or cumsum. Defaults to mean')
+parser.add_argument('-a', '--agg', default='mean',
+    choices=['mean', 'median', 'sum', 'std'],
+    help='numpy function to aggregate grouped table by mean, median, sum, std or cumsum. Defaults to mean')
+# parser.add_argument('-w', '--where', nargs='3', help='filter the data by a conditional for a particular column, e.g. -w col1 == 2')
+parser.add_argument('-c', '--comment', default=None, help='ignore lines denoted by this comment character.')
 args = parser.parse_args()
 
 df = pd.read_csv(args.file,
                  header=0 if args.header else None,
-                 sep=args.sep)
+                 sep=args.sep,
+				 comment=args.comment)
 
-if args.groupby[0] in args.y:
-    print("Woah, you can't group by columns you want to plot! Column: {0}".format(args.groupby[0]))
-    sys.exit()
-
-if args.groupby is not None and args.agg in ['mean', 'median', 'sum', 'std']:
+if args.groupby is not None:
     df = eval('df.groupby({0}, as_index=False).agg(np.{1})'.format(args.groupby, args.agg))
 
 
