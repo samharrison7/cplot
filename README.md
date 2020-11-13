@@ -2,9 +2,27 @@
 
 A very simple matplotlib wrapper to plot columns from a data file.
 
-## Installation
+## Getting started
 
-You need Python installed, as well as Pandas and Matplotlib. Then, simply copy the `cplot` script to somewhere on your `$PATH`.
+First up, clone this repo:
+
+```shell
+$ git clone https://github.com/samharrison7/cplot
+$ cd cplot
+```
+
+Cplot is a Python script which relies on NumPy, Pandas and Matplotlib. Chances are, if you're a Python developer, you'll already have these packages installed. If not, or if you'd like to keep things clean, then you can use the provided Conda `environment.yaml` file to create an environment to run cplot from:
+
+```shell
+$ conda env create -f environment.yaml
+$ conda activate cplot
+```
+
+You can then run the `cplot` script from this directory, or copy it to somewhere on your `$PATH` to make it globally available:
+
+```shell
+(cplot) $ cp ./cplot ~/bin            # For example, if ~/bin is in your $PATH
+```
 
 ## Usage
 
