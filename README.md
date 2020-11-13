@@ -71,7 +71,7 @@ For example, for the one column data structure ([example/sin.txt](example/sin.tx
 To plot a line graph:
 
 ```bash
-cplot example/sin.txt
+(cplot) $ cplot example/sin.txt
 ```
 
 ![sin(x)](doc/fig_sin.png)
@@ -90,9 +90,9 @@ x;y1;y2
 To plot `x` vs `y1`:
 
 ```bash
-cplot example/multicol.txt -s ";" -he -x 0 -y 1
+(cplot) $ cplot example/multicol.txt -s ";" -he -x 0 -y 1
 # OR
-cplot example/multicol.txt -s ";" -he -x x -y y1
+c(cplot) $ plot example/multicol.txt -s ";" -he -x x -y y1
 ```
 
 ![x vs y1](doc/fig_y1.png)
@@ -100,9 +100,9 @@ cplot example/multicol.txt -s ";" -he -x x -y y1
 To plot `x` vs `y1` and `y2`:
 
 ```bash
-cplot example/multicol.txt -s ";" -he -x x -y y1 y2
+(cplot) $ cplot example/multicol.txt -s ";" -he -x x -y y1 y2
 # OR
-cplot example/multicol.txt -s ";" -he -x 0 -y 1 2
+(cplot) $ cplot example/multicol.txt -s ";" -he -x 0 -y 1 2
 ```
 
 ![x vs y1](doc/fig_y1-y2.png)
@@ -110,14 +110,14 @@ cplot example/multicol.txt -s ";" -he -x 0 -y 1 2
 Changing the plot formats:
 
 ```bash
-cplot example/multicol.txt -s ";" -he -x x -y y1 y2 -f bo r-
+(cplot) $ cplot example/multicol.txt -s ";" -he -x x -y y1 y2 -f bo r-
 ```
 
 ![x vs y1 with different fmt](doc/fig_y1-y2_fmt.png)
 
 ### Groupby
 
-Cplot deals with the simplest of "groupby" operations; namely, grouping by one column using one aggregation function. The column to group by is provided by the `-gb` or `--groupby` flag, and the aggregation function by the `-a` or `--agg` flag (which defaults to "mean"). Internally, [pandas.DataFrame.groupby()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) is used (i.e. `DataFrame.group([-gb])).agg(np.-a)`).
+Cplot deals with the simplest of "groupby" operations; namely, grouping by one column using one aggregation function. The column to group by is provided by the `-gb` or `--groupby` flag, and the aggregation function by the `-a` or `--agg` flag (which defaults to "mean"). Internally, [pandas.DataFrame.groupby()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html) is used (i.e. `DataFrame.groupby([-gb])).agg(np.-a)`).
 
 For example, if you have the data structure [example/groupby.txt](example/groupby.txt):
 
@@ -136,7 +136,7 @@ t,x,y,z
 To plot `t` against the *sum* of `z` when grouped by `x` and `y`:
 
 ```bash
-cplot example/groupby.txt -he -gb t -a sum -x t -y z -f gs
+(cplot) $ cplot example/groupby.txt -he -gb t -a sum -x t -y z -f gs
 ```
 
 ![t vs z grouped](doc/fig_gb.png)
@@ -158,5 +158,5 @@ x,y
 To plot `x` against `y`:
 
 ```bash
-cplot example/comment.txt -he -c# -x x -y y
+(cplot) $ cplot example/comment.txt -he -c# -x x -y y
 ```
