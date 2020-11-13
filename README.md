@@ -92,7 +92,7 @@ To plot `x` vs `y1`:
 ```bash
 (cplot) $ cplot example/multicol.txt -s ";" -he -x 0 -y 1
 # OR
-c(cplot) $ plot example/multicol.txt -s ";" -he -x x -y y1
+(cplot) $ plot example/multicol.txt -s ";" -he -x x -y y1
 ```
 
 ![x vs y1](doc/fig_y1.png)
