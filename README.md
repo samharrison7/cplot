@@ -28,7 +28,7 @@ You can then run the `cplot` script from this directory, or copy it to somewhere
 
 ```
 usage: cplot [-h] [-s SEP] [-x X] [-y [Y [Y ...]]] [-he] [-f [FMT [FMT ...]]]
-             [-gb GROUPBY] [-a AGG]
+             [-gb GROUPBY] [-a {mean,median,sum,std}] [-c COMMENT]
              file
 
 Plot some columns.
@@ -51,7 +51,8 @@ optional arguments:
   -gb GROUPBY, --groupby GROUPBY
                         column to group data by. Pandas groupby() is applied
                         internally
-  -a AGG, --agg AGG     numpy function to aggregate grouped table by mean,
+  -a {mean,median,sum,std}, --agg {mean,median,sum,std}
+                        numpy function to aggregate grouped table by mean,
                         median, sum, std or cumsum. Defaults to mean
   -c COMMENT, --comment COMMENT
                         ignore lines denoted by this comment character.
@@ -92,7 +93,7 @@ To plot `x` vs `y1`:
 ```bash
 (cplot) $ cplot example/multicol.txt -s ";" -he -x 0 -y 1
 # OR
-(cplot) $ plot example/multicol.txt -s ";" -he -x x -y y1
+(cplot) $ cplot example/multicol.txt -s ";" -he -x x -y y1
 ```
 
 ![x vs y1](doc/fig_y1.png)
