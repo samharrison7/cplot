@@ -1,4 +1,4 @@
-# CPlot
+# Cplot
 
 A very simple matplotlib wrapper to plot columns from a data file.
 
