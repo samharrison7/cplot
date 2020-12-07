@@ -1,6 +1,6 @@
 # Cplot
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309750.svg)](https://doi.org/10.5281/zenodo.4309750)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309749.svg)](https://doi.org/10.5281/zenodo.4309749)
 
 A very simple matplotlib wrapper to plot columns from a data file.
 
